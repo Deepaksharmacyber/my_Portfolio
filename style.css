@@ -35,11 +35,21 @@ nav{
     align-items: center;
     justify-content: space-between;
     /* flex-wrap: wrap; */
-    /* background-color: green; */
+    background-color:black;
+    position: fixed;    
+    top: 0;
+    width: 80%;
+    padding: 1px 10px;
+    /* z-index: 1000; */
 }
 
 .logo{
     width: 240px;
+    margin-left: 10px;
+}
+
+nav ul{
+    margin-right: 100px;
 }
 
 nav ul li{
@@ -71,7 +81,7 @@ nav ul li a:hover::after{
 }
 
 .header-text{
-    margin-top: 150px;
+    margin-top: 300px;
     font-size: 30px;
 }
 
@@ -252,7 +262,7 @@ form .btn2{
     padding: 25px 0;
     background:#262626 ;
     font-weight: 300;
-    margin-top: 20px;
+    margin-top: 60px;
 }
 
 /* -------------css for small screens--- */
@@ -342,6 +352,7 @@ nav .fas{
 
 #msg{
     color: #61b572;
+    font-size: 32px;
     margin-top: 20px;
     display: block;
 }
