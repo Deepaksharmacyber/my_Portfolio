@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
-<body>
+<body onload="loadTheme()">                                      
     <div id="header">
         <div class="container">
-            <nav>
+            <nav id="topbar">
                 <img src="images/logo.png" class="logo" alt="">
                 <ul id="sidemenu">
                     <li><a href="#header">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="" id="button" onclick="theme()">Dark</a></li>
                     <i class="fas fa-times" onclick="closemenu()"></i>
                 </ul>
                 <i class="fas fa-bars" onclick="openmenu()"></i>
@@ -24,7 +25,9 @@
 
             <div class="header-text">
                 <p>Python Developer</p>
-                <h1>Hi,I'm <span>Deepak</span> from <br> Punjab</h1>
+                <!-- <h1>Hi,I'm <span>Deepak</span> from <br> Punjab</h1> -->
+                <p class="intro-text">Hi, I am <span>Deepak</span></p><br>
+                <p class="location-text">from Punjab</p>
             </div>
         </div>
     </div>
@@ -38,7 +41,7 @@
 
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
-                    <p>Hi there! I'm a passionate and fresher who recently completed a Python development course from PySpiders. I have a solid understanding of Python and enjoy working on projects that solve real-world problems.In addition to Python, I also have knowledge of HTML, CSS, and JavaScript. These skills enable me to build interactive and user-friendly websites and applications. I'm excited to start my career in software development and am looking forward to opportunities where I can contribute, learn, and grow. Let's connect and explore how we can work together!.</p>
+                    <p class="paragraph">Hi there! I'm a passionate and fresher who recently completed a Python development course from PySpiders. I have a solid understanding of Python and enjoy working on projects that solve real-world problems.In addition to Python, I also have knowledge of HTML, CSS, and JavaScript. These skills enable me to build interactive and user-friendly websites and applications. I'm excited to start my career in software development and am looking forward to opportunities where I can contribute, learn, and grow. Let's connect and explore how we can work together!.</p>
 
                     <div class="tab-titles">
                         <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
@@ -82,10 +85,17 @@
                     <div class="social-icons">
                         <a href=""><i class="fab fa-instagram"></i></a>
                         <a href=""><i class="fab fa-twitter-square"></i></a>
-                        <a href=""><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/deepak-sharma-337653243"><i class="fab fa-linkedin"></i></a>
                     </div>
-                    <a href="images/Deepak-resume.pdf" download class="btn btn2">Download CV</a>
+                    <a href="images/Deepak-resume.pdf" download class="button">
+                        <span class="button__text">
+                            Download my Resume
+                        </span>
+                        <img src="images/cone.png" class="button__cone" alt="">
+                        <img src="images/torus.png" class="button__png" alt="">
+                        <img src="images/icosahedron.png" class="button_icosahedron" alt="">
+                        <img src="images/sphere.png" class="button__sphere" alt="">                
+                    </a>
                 </div>
                 <div class="contact-right">
                     <form name="submit-to-google-sheet">
@@ -99,7 +109,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>copyright @ Deepak Sharma</p>
+            <p id="copyright_text">copyright @ Deepak Sharma</p>
         </div>
     </div>
     <script>
@@ -120,16 +130,20 @@
     </script>
 
     <script>
-        var sidemeu = document.getElementById('sidemenu') 
-        
-        function openmenu(){
-            sidemeu.style.right = "0";
+        function openmenu() {
+            document.getElementById('sidemenu').style.right = '100';
+            console.log('right is zero');
+            document.getElementById('sidemenu').style.width = '200px';
+            document.getElementById('sidemenu').marginLeft = '0px';
+            // document.getElementById('sidemenu').style.background = "red";
         }
 
-        function closemenu(){
-            sidemeu.style.right = "-200px";
+        function closemenu() {
+            document.getElementById('sidemenu').style.right = '-200px';
+            document.getElementById('sidemenu').style.width = '0';
         }
     </script>
+
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxYum8Uw-MKzNUKU8G_eaiPsmQiZXlVJeV44IAdlAlQHqQDbLGp9KaWjBE-MTx-_C9o/exec'
         const form = document.forms['submit-to-google-sheet']
@@ -148,5 +162,69 @@
             .catch(error => console.error('Error!', error.message))
         })
       </script>
+
+    <!-- --------------theme change-------- -->
+    <script>
+        let btn = document.querySelector("#button")
+
+        function theme(){
+            let theme = btn.innerText;
+
+            let topbar = document.getElementById('topbar');
+            let links = topbar.querySelectorAll('a');
+
+            let subtitles = document.querySelectorAll('.sub-title, .paragraph,li');
+
+            let copyright_text = document.getElementById('copyright_text');
+
+            if(theme == 'Light'){
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = 'black';
+                btn.innerText = 'Dark';
+                topbar.style.backgroundColor = 'white'
+                links.forEach(link => link.style.color = 'black');
+                subtitles.forEach(subtitle => subtitle.style.color = 'black');
+                copyright_text.style.color = 'white';
+                localStorage.setItem('theme', 'light');
+            }
+            else if(theme == 'Dark'){
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = 'white';
+                btn.innerText = 'Light';
+                topbar.style.backgroundColor = 'black'
+                links.forEach(link => link.style.color = 'white');
+                subtitles.forEach(subtitle => subtitle.style.color = 'white');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function loadTheme(){
+            const savedTheme = localStorage.getItem('theme');
+            let topbar = document.getElementById('topbar');
+            let links = topbar.querySelectorAll('a');
+           
+            let subtitles = document.querySelectorAll('.sub-title ,.paragraph,li');
+
+            let copyright_text = document.getElementById('copyright_text');
+
+            if(savedTheme == 'light'){
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = 'black';
+                topbar.style.backgroundColor = 'white'
+                links.forEach(link => link.style.color = 'black');
+                subtitles.forEach(subtitle => subtitle.style.color = 'black');
+                copyright_text.style.color = 'white';
+                btn.innerText = 'Dark';
+            }
+            else if(savedTheme == 'dark'){
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = 'white';
+                topbar.style.backgroundColor = 'black'
+                links.forEach(link => link.style.color = 'white');
+                subtitles.forEach(subtitle => subtitle.style.color = 'white');
+                btn.innerText = 'Light';
+            }
+        }
+    </script>
 </body>
 </html>
